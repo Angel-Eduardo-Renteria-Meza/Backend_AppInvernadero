@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // URL de conexión a la base de datos
-const url = 'mongodb://localhost:27017/testInv';
+const url = 'mongodb+srv://eduard12:K108p200M@backinv.zskxaud.mongodb.net/?retryWrites=true&w=majority';
 
 // Opciones de conexión
 const options = {
@@ -13,8 +13,8 @@ const options = {
 // Conectar a la base de datos
 module.exports = () =>{
         mongoose.connect(url, options)
-        .then(() => console.log('Conexión exitosa a MongoDB'))
-        .catch(err => console.log('Error al conectar a MongoDB:', err));
+        .then(() => console.log('Conexión exitosa a Mongo Atlas'))
+        .catch(err => console.log('Error al conectar a Mongo Atlas:', err));
     }
 
  
