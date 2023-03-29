@@ -38,7 +38,7 @@ setInterval(() => {
 		.catch(error => {
 			console.log(error);
 		});
-}, 1800000); // 30 minutos 1800000
+}, 5000); // 30 minutos 1800000
 
 setInterval(() => {
 	// Media temperatura
@@ -74,7 +74,7 @@ setInterval(() => {
 	humedad1 = [];
 	humedad2 = [];
 	humedadatm = [];
-}, 89400000); // 23 horas 50 minutos 89400000
+}, 60000); // 23 horas 50 minutos 89400000
 //60000 1 minuto
 // Empezando el servidor
 app.listen(app.get('port'), () =>{
