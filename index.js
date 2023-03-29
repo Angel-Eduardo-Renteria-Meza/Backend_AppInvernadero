@@ -57,7 +57,7 @@ setInterval(() => {
 	const fechaActual = new Date();
 	const fechaFormateada = fechaActual.toLocaleDateString();
 	// ---------------------------------------------------------
-	axios.post('http://localhost:5000/inv/mediaDia/post', {
+	axios.post('https://backend-app-invernadero.vercel.app/inv/mediaDia/post', {
 			mediaTemperatura: mediaTemp,
 			media_Humedad_1: mediaHum,
 			media_Humedad_2: mediaHum2,
