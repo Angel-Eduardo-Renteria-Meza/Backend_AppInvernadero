@@ -1,19 +1,40 @@
 const express = require('express');
 const morgan = require('morgan');
 const axios = require('axios');
-const app = express();
+
 const initDB = require('./config/db')
 const userRoutes = require('./routes/user')
 const mediaRoutes = require('./routes/mediaDia');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
+
+const app = express();
+const httpServer = createServer(app);
+const io = new Server (httpServer, { 
+ });
+
+ io.on('connect', (socket) => {
+	console.log("Cliente conectado");
+
+	socket.on('disconnect', () => {
+		console.log(`Cliente desconectado: ${socket.id}`);
+	  });
+	
+	  socket.on('mensaje', (data) => {
+		console.log(`Mensaje recibido: ${data}`);
+		io.emit('mensaje', data);
+	  });
+ });
 // configuracion
-app.set('port', process.env.PORT || 5000);
+
+ app.set('port', process.env.PORT || 5000);
 
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/inv', userRoutes)
-app.use('/inv', mediaRoutes)
+app.use('/inv', userRoutes);
+app.use('/inv', mediaRoutes);
 
 // Media del Dia de los sensores
 let temperature = [];
@@ -24,6 +45,9 @@ let humedadatm = [];
 setInterval(() => {
 	axios.get('https://backend-vf-12.vercel.app/api/ultimo')
 		.then(res => {
+			io.emit('actualizar', () => {
+
+			})
 			// Response de datos
 			const temp = parseFloat(res.data[0]['Temperatura'])
 			const hum1 = res.data[0]['Humedad_cultivo_1'];
@@ -38,7 +62,7 @@ setInterval(() => {
 		.catch(error => {
 			console.log(error);
 		});
-}, 1800000); // 30 minutos 1800000
+}, 5000); // 30 minutos 1800000
 
 setInterval(() => {
 	// Media temperatura
@@ -57,7 +81,7 @@ setInterval(() => {
 	const fechaActual = new Date();
 	const fechaFormateada = fechaActual.toLocaleDateString();
 	// ---------------------------------------------------------
-	axios.post('https://backend-app-invernadero.vercel.app/inv/mediaDia/post', {
+	axios.post('backend-app-invernadero-angel.vercel.app/inv/mediaDia/post', {
 			mediaTemperatura: mediaTemp,
 			media_Humedad_1: mediaHum,
 			media_Humedad_2: mediaHum2,
@@ -65,6 +89,7 @@ setInterval(() => {
 			fecha: fechaFormateada
 		})
 		.then(response => {
+			
 			console.log(response);
 		})
 		.catch(error => {
@@ -74,10 +99,13 @@ setInterval(() => {
 	humedad1 = [];
 	humedad2 = [];
 	humedadatm = [];
-},  86400000); // 24 horas 00 minutos 86400000
+},  60000); // 24 horas 00 minutos 86400000
 //60000 1 minuto
+
+io.
+
 // Empezando el servidor
-app.listen(app.get('port'), () =>{
+httpServer.listen(app.get('port'), () =>{
     console.log(`servidor en el puerto ${app.get('port')}`);
 });
 
