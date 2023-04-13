@@ -23,4 +23,4 @@ const mediaSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('mediaDia', mediaSchema);
+module.exports = mongoose.model('mediaDia', mediaSchema, 'PromMedias');

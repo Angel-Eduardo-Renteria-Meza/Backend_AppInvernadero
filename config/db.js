@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // URL de conexión a la base de datos
-const url = 'mongodb+srv://eduard12:K108p200M@backinv.zskxaud.mongodb.net/?retryWrites=true&w=majority';
+const url = 'mongodb+srv://edu12:K108p200M@cluster0.40ydn5h.mongodb.net/inv?retryWrites=true&w=majority';
 
 // Opciones de conexión
 const options = {
