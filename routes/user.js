@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userSchema = require("../models/user");
 const bycript = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 //crear Usuario
 router.post('/users', (req, res) => {
@@ -22,13 +23,31 @@ router.get('/users/:email/:password', (req, res) => {
         .then(async function (data){
             let isEqual = await bycript.compare(password, data[0].password);
             if(isEqual){
-               res.status(202).send('Contraseña correcta');
+                // res.status(202).send('Ha iniciado Sesion!!');
+                
+                const payload = {
+                    id: data[0]._id,
+                    email: data[0].email
+                }
+
+                const options = {
+                    expiresIn: "1h",
+                    issuer: "cultiveCare"
+                }
+                
+                const token = jwt.sign(payload, process.env.ACC_TOKEN , options)
+
+                res.send({
+                    token,
+                });
+                
             }else{
-                res.status(404).send('contraseña incorrecta');
+                error
             }
             
         })
-        .catch((error) => res.json({ message: error})); 
+        .catch((error) => res.status(401).send(`Tu Email o Contraseña son incorrectos`));
+        // res.json({ message: error})); 
 
 });
 

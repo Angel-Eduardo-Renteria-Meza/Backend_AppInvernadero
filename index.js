@@ -1,9 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const dotenv = require('dotenv').config()
 const initDB = require('./config/db')
 const userRoutes = require('./routes/user')
 const mediaRoutes = require('./routes/mediaDia');
+
+
 
 // configuracion
 app.set('port', process.env.PORT || 5000);

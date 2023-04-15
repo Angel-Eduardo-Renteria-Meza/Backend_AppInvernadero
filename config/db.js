@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 // URL de conexión a la base de datos
-const url = 'mongodb+srv://edu12:K108p200M@cluster0.40ydn5h.mongodb.net/inv?retryWrites=true&w=majority';
+const url = process.env.MONGO_URL;
 
 // Opciones de conexión
 const options = {
-    keepAlive: true,
+  keepAlive: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
 };
@@ -17,4 +17,3 @@ module.exports = () =>{
         .catch(err => console.log('Error al conectar a Mongo Atlas:', err));
     }
 
- 
