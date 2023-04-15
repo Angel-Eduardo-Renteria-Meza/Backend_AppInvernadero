@@ -11,6 +11,8 @@ app.set('port', process.env.PORT || 5000);
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+
+//Rutas
 app.use('/inv', userRoutes)
 app.use('/inv', mediaRoutes)
 
@@ -20,4 +22,4 @@ app.listen(app.get('port'), () =>{
     console.log(`servidor en el puerto ${app.get('port')}`);
 });
 
-initDB()
+initDB();
