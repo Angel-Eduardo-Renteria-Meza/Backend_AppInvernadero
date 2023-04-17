@@ -37,8 +37,10 @@ router.get('/users/:email/:password', (req, res) => {
                 
                 const token = jwt.sign(payload, process.env.ACC_TOKEN , options)
 
-                res.send({
+                res.status(202).send({
                     token,
+                    _id: data[0]._id,
+                    email: data[0].email
                 });
                 
             }else{
