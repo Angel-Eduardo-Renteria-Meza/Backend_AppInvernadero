@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre('save', async function (next) {
     try {
         const salt = await bycript.genSalt(10);
-        const hashpass = await bycript.hash(this.password, salt);
+        const hashpass = await bycript.hash(this.password, salt); //await innecesario
         this.password = hashpass;
         next()
     } catch (error) {

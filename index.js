@@ -4,7 +4,7 @@ const app = express();
 const dotenv = require('dotenv').config()
 const initDB = require('./config/db')
 const userRoutes = require('./routes/user')
-const mediaRoutes = require('./routes/mediaDia');
+
 
 
 
@@ -17,7 +17,7 @@ app.use(express.json());
 
 //Rutas
 app.use('/inv', userRoutes)
-app.use('/inv', mediaRoutes)
+
 
 
 // Empezando el servidor
