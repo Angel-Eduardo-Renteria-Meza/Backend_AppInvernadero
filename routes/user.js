@@ -11,8 +11,14 @@ router.post('/users', (req, res) => {
     
     user
         .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error})); 
+        .then((data) => {
+          res.json(data)
+          console.log('funciono');
+        })
+        .catch((error) => {
+          res.json({ message: error})
+          console.log(error);
+        }); 
 
 });
 //validacion login
